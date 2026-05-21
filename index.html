@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A11yPilot Studio | AI Accessibility Remediation Workspace</title>
+<style>
+:root{--bg:#080d18;--card:#111b2d;--text:#f7fbff;--muted:#a9b8ce;--line:rgba(255,255,255,.1);--cyan:#67e8f9;--blue:#8ab4ff;--green:#86efac;--amber:#fcd34d;--red:#fda4af;--violet:#c4b5fd}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif;background:radial-gradient(circle at 8% -8%,rgba(103,232,249,.18),transparent 28rem),radial-gradient(circle at 92% 0,rgba(196,181,253,.15),transparent 24rem),linear-gradient(180deg,#080d18,#091525 50%,#060a12)}
+a{text-decoration:none;color:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+.top{position:sticky;top:0;z-index:10;background:rgba(8,13,24,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{height:74px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;gap:13px;align-items:center;font-weight:900}
+.logo{width:43px;height:43px;border-radius:16px;background:linear-gradient(135deg,var(--cyan),var(--blue),var(--violet));box-shadow:0 18px 48px rgba(103,232,249,.24);position:relative}
+.logo:before{content:"";position:absolute;left:12px;top:10px;width:19px;height:19px;border:3px solid #080d18;border-radius:999px}.logo:after{content:"";position:absolute;left:19px;bottom:8px;width:5px;height:15px;background:#080d18;border-radius:999px}
+.brand small{display:block;color:#91a4ba;font-size:12px;font-weight:600}.links{display:flex;gap:22px;color:#c7d4e2;font-size:14px}
+.hero{padding:92px 0 58px}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
+.tag{display:inline-flex;gap:9px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(103,232,249,.1);border:1px solid rgba(103,232,249,.22);font-size:13px;font-weight:900}.pulse{width:8px;height:8px;border-radius:999px;background:var(--green);box-shadow:0 0 0 8px rgba(134,239,172,.12)}
+h1{font-size:clamp(46px,7vw,84px);line-height:.9;letter-spacing:-.075em;margin:18px 0 20px}.grad{background:linear-gradient(90deg,#fff,#a5f3fc 34%,#dbeafe 62%,#ddd6fe 92%);-webkit-background-clip:text;color:transparent}
+.lead{font-size:18px;line-height:1.85;color:#c3d0de}.btns{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.btn{padding:13px 18px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);font-weight:850}.primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#06101f;border:0}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}.metric,.card{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.045));border:1px solid var(--line);border-radius:26px;box-shadow:0 30px 90px rgba(0,0,0,.36)}
+.metric{padding:18px}.metric strong{display:block;font-size:30px}.metric span{font-size:13px;color:var(--muted)}
+.console{overflow:hidden}.console-head{display:flex;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}.dots{display:flex;gap:8px}.dot{width:10px;height:10px;border-radius:999px}.dot:nth-child(1){background:#ff7b7b}.dot:nth-child(2){background:#ffd166}.dot:nth-child(3){background:#86efac}
+.console-body,.panel,.feature,.road{padding:22px}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:rgba(252,211,77,.11);border:1px solid rgba(252,211,77,.2);font-size:12px;font-weight:900;color:#ffeaa7}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#07101a;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;color:#dce9fb;font-size:12.5px;line-height:1.72;white-space:pre-wrap;overflow:auto}
+.section{padding:46px 0}.section h2{font-size:44px;letter-spacing:-.055em;margin:0 0 10px}.section p{color:#b9c8d8;line-height:1.82}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}.icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(103,232,249,.16),rgba(196,181,253,.14));font-size:22px}
+.workspace{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.info,.step,.row,.note{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07)}.info span{color:#9fafc2;font-size:13px}
+.timeline{display:grid;gap:12px}.step small{color:var(--cyan);font-weight:900;letter-spacing:.08em}.plus{color:var(--green)}.minus{color:var(--red)}.warn{color:var(--amber)}
+.table{display:grid;gap:10px;margin-top:18px}.row{display:grid;grid-template-columns:1.05fr .6fr .9fr;gap:10px;color:#d8e5f7;font-size:14px}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:rgba(103,232,249,.12);font-size:12px;font-weight:850}
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}.road small{color:var(--cyan);font-weight:900}.footer{padding:62px 0;text-align:center;color:#8fa0b7}
+@media(max-width:900px){.grid,.cards,.workspace,.roadmap,.metrics,.info-grid{grid-template-columns:1fr}.links{display:none}.row{grid-template-columns:1fr}h1{font-size:52px}.section h2{font-size:34px}}
+</style>
+</head>
+<body>
+<header class="top"><nav class="wrap nav"><div class="brand"><span class="logo"></span><span>A11yPilot Studio<small>AI Accessibility Audit & Remediation Workspace</small></span></div><div class="links"><a href="#cap">Capabilities</a><a href="#work">Workspace</a><a href="#patch">Patch</a><a href="#road">Roadmap</a></div></nav></header>
+
+<main>
+<section class="hero wrap"><div class="grid"><div><div class="tag"><span class="pulse"></span>AI agents for WCAG audits, keyboard flows and UI code fixes</div><h1>Fix accessibility issues with <span class="grad">code-level evidence</span>.</h1><p class="lead">A11yPilot Studio 是一个面向前端项目的 AI 无障碍审计与修复工作台。它会读取 React/Vue 组件、Storybook、Playwright 录制、axe 报告、键盘导航日志和设计标注，自动识别 WCAG 风险，生成可审查的组件 patch、回归测试和发布报告。</p><div class="btns"><a class="btn primary" href="#work">Open Audit Workspace</a><a class="btn" href="#patch">View Remediation Patch</a></div><div class="metrics"><div class="metric"><strong>68</strong><span>无障碍问题已聚类</span></div><div class="metric"><strong>11</strong><span>阻断级键盘/读屏问题</span></div><div class="metric"><strong>7 agents</strong><span>审计、修复、测试、审查协作</span></div></div></div><div class="card console"><div class="console-head"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span style="color:#93a5ba;font-family:monospace">audit_run_5184</span></div><div class="console-body"><span class="badge">ACCESSIBILITY REGRESSION DETECTED</span><h3>Checkout modal traps focus and hides error state from screen readers</h3><div class="code">Loaded context:
+- 42 React components
+- 9 Storybook stories
+- 4 Playwright keyboard recordings
+- 3 axe reports
+- 12 design annotations
+- 18 i18n message files
+
+A11y Agent result:
+1. modal lacks aria-labelledby
+2. focus returns to body after close
+3. coupon error not announced
+4. disabled button uses color only
+5. tab order skips payment method selector
+
+Suggested remediation:
+focus trap + labelled dialog + live region + keyboard regression test</div></div></div></div></section>
+
+<section class="section wrap" id="cap"><h2>Designed for codebase-level accessibility work.</h2><p>A11yPilot 不只是列出无障碍检查清单，而是把 UI 代码、设计稿说明、键盘路径、自动化报告和实际组件状态结合起来，生成可验证的修复 patch。</p><div class="cards"><article class="card feature"><div class="icon">⌨️</div><h3>Keyboard Flow Audit</h3><p>分析 tab 顺序、focus trap、关闭返回点和快捷键冲突。</p></article><article class="card feature"><div class="icon">🔊</div><h3>Screen Reader State</h3><p>检查 aria label、live region、错误提示和动态内容可感知性。</p></article><article class="card feature"><div class="icon">🎨</div><h3>Contrast & State Review</h3><p>识别对比度不足、仅靠颜色表达状态、hover/focus 缺失等问题。</p></article><article class="card feature"><div class="icon">🧪</div><h3>Regression Tests</h3><p>生成 Playwright、axe、Storybook interaction 和组件级回归测试。</p></article></div></section>
+
+<section class="section wrap" id="work"><h2>Accessibility workspace demo.</h2><p>下面展示一次 checkout modal 的无障碍回归修复。Agent 会先分析组件和键盘路径，再生成 ARIA 修复、focus 管理和测试。</p><div class="workspace"><section class="card panel"><h3>Audit Snapshot</h3><div class="info-grid"><div class="info"><strong>Project</strong><span>commerce-ui-kit</span></div><div class="info"><strong>Area</strong><span>checkout modal / coupon form</span></div><div class="info"><strong>Components</strong><span>42 files / 9 stories</span></div><div class="info"><strong>Severity</strong><span>11 blocking issues</span></div></div><div class="code" style="margin-top:16px">Issue Map:
+CheckoutModal
+├─ missing aria-labelledby
+├─ no focus return target
+├─ keyboard tab order skips PaymentMethod
+├─ CouponForm error not announced
+└─ disabled Submit state depends on color only
+
+Acceptance criteria:
+1. dialog has accessible name and description
+2. focus remains inside modal
+3. close returns focus to trigger button
+4. coupon errors are announced
+5. automated keyboard test passes</div><div class="note" style="margin-top:14px">目标是直接修复组件和测试，不把无障碍当成事后文档检查。</div></section><section class="card panel"><h3>Agent Timeline</h3><div class="timeline"><div class="step"><small>UI CONTEXT AGENT</small><h4>Map component and story context</h4><p>读取组件、Storybook、设计标注和 i18n 文案，定位问题 UI 区域。</p></div><div class="step"><small>KEYBOARD AGENT</small><h4>Replay tab and focus path</h4><p>分析 tab 顺序、焦点陷阱、关闭返回点和隐藏控件。</p></div><div class="step"><small>REMEDIATION AGENT</small><h4>Generate accessible patch</h4><p>生成 ARIA、live region、focus 管理和状态表达修复。</p></div><div class="step"><small>TEST AGENT</small><h4>Validate with axe and Playwright</h4><p>补充键盘、读屏状态、组件交互和视觉状态回归测试。</p></div></div></section></div></section>
+
+<section class="section wrap" id="patch"><h2>Generated accessibility patch.</h2><p>输出结果包含组件修复、测试、审查说明和验证矩阵，方便直接进入 PR 审查。</p><div class="workspace"><section class="card panel"><h3>Remediation Patch</h3><div class="code"><span class="minus">- &lt;Modal open={open}&gt;</span>
+<span class="plus">+ &lt;Modal</span>
+<span class="plus">+   open={open}</span>
+<span class="plus">+   role="dialog"</span>
+<span class="plus">+   aria-labelledby="checkout-title"</span>
+<span class="plus">+   aria-describedby="checkout-description"</span>
+<span class="plus">+   initialFocusRef={couponInputRef}</span>
+<span class="plus">+   returnFocusRef={checkoutButtonRef}</span>
+<span class="plus">+ &gt;</span>
+
+<span class="plus">+ &lt;div role="status" aria-live="polite"&gt;{couponError}&lt;/div&gt;</span>
+
+<span class="plus">+ test('checkout modal keeps focus and announces coupon error', async ({ page }) => {</span>
+<span class="plus">+   await openCheckout(page)</span>
+<span class="plus">+   await expect(page.getByRole('dialog', { name: /checkout/i })).toBeFocused()</span>
+<span class="plus">+   await applyInvalidCoupon(page)</span>
+<span class="plus">+   await expect(page.getByRole('status')).toContainText('Coupon is invalid')</span>
+<span class="plus">+ })</span></div></section><section class="card panel"><h3>Validation Matrix</h3><div class="table"><div class="row"><span>axe scan</span><span><span class="pill">PASS</span></span><span>0 blocking violations</span></div><div class="row"><span>keyboard path</span><span><span class="pill">PASS</span></span><span>tab order stable</span></div><div class="row"><span>screen reader state</span><span><span class="pill">PASS</span></span><span>error announced via live region</span></div><div class="row"><span>visual state</span><span><span class="pill">PASS</span></span><span>disabled state uses text + icon</span></div></div></section></div></section>
+
+<section class="section wrap" id="road"><h2>Evaluation roadmap.</h2><p>后续计划使用多个开源前端项目验证 UI 组件无障碍审计、代码修复、交互测试和 PR 报告生成能力。</p><div class="roadmap"><article class="card road"><small>Phase 01</small><h3>Component Audit Benchmark</h3><p>覆盖 modal、dropdown、form、table、toast、navigation 和 dashboard 组件。</p></article><article class="card road"><small>Phase 02</small><h3>Keyboard & Screen Reader Tests</h3><p>生成键盘路径、ARIA 状态、动态错误提示和 focus return 测试。</p></article><article class="card road"><small>Phase 03</small><h3>Design-to-Code Remediation</h3><p>结合设计标注、组件源码和自动化报告生成 PR 级修复说明。</p></article></div></section>
+</main><footer class="footer wrap">A11yPilot Studio · AI Accessibility Audit & Remediation Workspace</footer>
+</body></html>
